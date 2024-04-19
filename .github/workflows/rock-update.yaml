@@ -1,0 +1,27 @@
+name: Update rock
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 0,4,8,12,16,20 * * *'
+
+jobs:
+  build:
+    uses: canonical/observability/.github/workflows/rock-update.yaml@main
+    with:
+      rock-name: karma
+      source-repo: prymitive/karma
+      check-go: true
+      update-script: |
+        # The caller must provide \$application_src and \$rockcraft_yaml
+        #   \$application_src: The root folder of the cloned upstream project
+        #   \$rockcraft_yaml: Path of the rockcraft.yaml to update
+        #
+        ## karma-ui dependency
+        source_tag=$(yq .parts.karma.source-tag $rockcraft_yaml)
+        tag="\$source_tag" yq -i '.parts.karma-ui.source-tag = strenv(tag)' $rockcraft_yaml
+
+        ## Node dependency
+        node_version="\$(sed -En 's|\s*"@types/node":\s*"\^*([0-9]+)(\.[0-9])+.*",|\1|p' \$application_src/ui/package.json)"
+        yq -i 'del(.parts.karma-ui.build-snaps.[] | select(. == "node/*"))' "\$rockcraft_yaml"
+        ver="\$node_version" yq -i '.parts.karma-ui.build-snaps += "node/"+strenv(ver)+"/stable"' "\$rockcraft_yaml"

@@ -13,10 +13,10 @@ services:
 platforms:
   amd64:
 parts:
-  ui:
+  karma-ui:
     plugin: npm
-    npm-include-node: true
-    npm-node-version: "20.12.2"
+    # npm-include-node: true
+    # npm-node-version: "20.12.2"
     build-snaps:
       - node/20/stable
     source: https://github.com/prymitive/karma.git
@@ -30,8 +30,8 @@ parts:
       npm ci
       touch node_modules/.install
       make build
-  cmd:
-    after: [ ui ]
+  karma:
+    after: [ karma-ui ]
     plugin: go
     source: https://github.com/prymitive/karma.git
     source-type: git
@@ -52,7 +52,7 @@ parts:
   deb-security-manifest:
     plugin: nil
     after:
-      - cmd
+      - karma
       - ca-certs
     override-prime: |
       set -x
