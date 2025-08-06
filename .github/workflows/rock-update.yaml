@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     uses: canonical/observability/.github/workflows/rock-update.yaml@v0
+    secrets:
+      OBSERVABILITY_NOCTUA_TOKEN: ${{ secrets.OBSERVABILITY_NOCTUA_TOKEN }}
     with:
       rock-name: karma
       source-repo: prymitive/karma
