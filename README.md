@@ -4,6 +4,9 @@
 [![Publish to GHCR:dev](https://github.com/canonical/karma-rock/actions/workflows/rock-release-dev.yaml/badge.svg)](https://github.com/canonical/karma-rock/actions/workflows/rock-release-dev.yaml)
 [![Update rock](https://github.com/canonical/karma-rock/actions/workflows/rock-update.yaml/badge.svg)](https://github.com/canonical/karma-rock/actions/workflows/rock-update.yaml)
 
+# 🚧 Notice 🚧
+> This rock is no longer under active development and there will be no further updates.
+
 [Rocks](https://canonical-rockcraft.readthedocs-hosted.com/en/latest/) for [Karma](https://karma-dashboard.io/).
 This repository holds all the necessary files to build rocks for the upstream versions we support. The Karma rock is used by the [karma-k8s-operator](https://github.com/canonical/karma-k8s-operator) charm.
 
